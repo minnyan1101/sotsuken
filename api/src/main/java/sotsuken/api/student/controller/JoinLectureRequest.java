@@ -1,4 +1,4 @@
-package sotsuken.api.teacher.controller;
+package sotsuken.api.student.controller;
 
 public class JoinLectureRequest {
     public Long subjectId;
