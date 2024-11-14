@@ -27,7 +27,7 @@ public class StudentController {
         @PathVariable("studentId") Long studentId
     ){
         return new StudentStatusResponse(
-            0L, "xxx", 0L, "Class"
+            0, "xxx", 0L, "Class"
         );
     }
 
@@ -38,8 +38,6 @@ public class StudentController {
         @PathVariable("studentId") Long studentId,
         @RequestBody StudentRequest reqeust
     ){            
-
-
         return new StudentStatusResponse(0, "xxx", 0, "xxx");
     }
     
