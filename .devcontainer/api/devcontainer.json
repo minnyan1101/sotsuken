@@ -10,10 +10,12 @@
 			"extensions": [
 				"vscjava.vscode-java-pack",
 				"vmware.vscode-boot-dev-pack",
-				"GitHub.vscode-pull-request-github"
+				"GitHub.vscode-pull-request-github",
+				"ms-vsliveshare.vsliveshare"
 			],
 			"settings": {
-				"java.import.gradle.java.home": ""
+				"java.import.gradle.java.home": "",
+                "liveshare.connectionMode": "relay"
 			}
 		}
 	}

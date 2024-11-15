@@ -2,5 +2,8 @@
     "java.compile.nullAnalysis.mode": "automatic",
     "java.configuration.updateBuildConfiguration": "interactive",
     "git.openRepositoryInParentFolders": "always",
-    "java.import.gradle.java.home": ""
+    "java.import.gradle.java.home": "",
+    "files.autoSave": "afterDelay",
+    "editor.detectIndentation": false,
+    "git.autofetch": true
 }
