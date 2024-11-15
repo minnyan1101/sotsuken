@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/teacher/subjects")
 public class SubjectController {
 
-    @GetMapping("")
+    @GetMapping("") // 授業一覧表示
     public List<SubjectResponse> fetchAllSubject() {
         return List.of(new SubjectResponse(
                 0L,
@@ -26,7 +26,7 @@ public class SubjectController {
                 List.of(0L)));
     }
 
-    @PostMapping("")
+    @PostMapping("") // 新しく授業を作成
     public SubjectResponse createSubject(@RequestBody CreateSubjectRequest createsubject) {
         return new SubjectResponse(
                 0L,
@@ -37,7 +37,7 @@ public class SubjectController {
                 List.of(0L));
     }
 
-    @GetMapping("/{subjectId}")
+    @GetMapping("/{subjectId}") // 授業データの取得
     public SubjectResponse fetchSubject(@PathVariable("subjectId") Long subjectId) {
         return new SubjectResponse(
                 0L,
@@ -48,7 +48,7 @@ public class SubjectController {
                 List.of(0L));
     }
 
-    @PostMapping("/{subjectId}")
+    @PostMapping("/{subjectId}") // 授業内容の編集
     public SubjectResponse EditSubject(
             @PathVariable("subjectId") Long subjectId,
             @RequestBody EditSubjectRequest EditSubject) {
