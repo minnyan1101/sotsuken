@@ -1,0 +1,4 @@
+CREATE TABLE teachers(
+    id BIGSERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+);
