@@ -63,4 +63,5 @@ public class SubjectsLecturesContoller {
                 0L, 0L, 0L, "xxx", true, false));
     }
 
+    
 }
