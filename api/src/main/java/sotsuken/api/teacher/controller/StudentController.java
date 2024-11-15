@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/api/teacher/students")
 public class StudentController {
-    @GetMapping("")
+    @GetMapping("")//学生一覧の表示(学生一覧)
     public List<StudentStatusResponse> fetchAllStudents(@RequestParam("classId") Long classId) {
         return List.of(new StudentStatusResponse(
             0L, "xxx", 0L, "Class"
         ));
     }
 
-    @GetMapping("/{studentId}")
+    @GetMapping("/{studentId}")//学生１人の情報を表示（学生詳細）
     public StudentStatusResponse fetchStudent(
         @PathVariable("studentId") Long studentId
     ){
@@ -33,7 +33,7 @@ public class StudentController {
 
 
 
-    @PostMapping("/{studentId}")
+    @PostMapping("/{studentId}")//学生情報の更新処理（学生詳細）
     public StudentStatusResponse changeStudentStatus(
         @PathVariable("studentId") Long studentId,
         @RequestBody StudentRequest reqeust
