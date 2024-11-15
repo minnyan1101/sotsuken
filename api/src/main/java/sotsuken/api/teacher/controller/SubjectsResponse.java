@@ -5,11 +5,11 @@ package sotsuken.api.teacher.controller;
 
     public class SubjectsResponse {
     
-        public String subjectname;
-        public LocalDate startDate;
-        public LocalDate finishDate;
-        public Long teacherId;
-        public List<Long> studentIds;
+        public String subjectname;//授業名
+        public LocalDate startDate;//開始日
+        public LocalDate finishDate;//終了日
+        public Long teacherId;//先生ID
+        public List<Long> studentIds;//学生ID
     
         public SubjectsResponse(
         

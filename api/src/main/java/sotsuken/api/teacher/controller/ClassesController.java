@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/teacher/classes")
 public class ClassesController {
 
-    @GetMapping("")
+    @GetMapping("")//クラス一覧表示
     public List<ClassResponse> fetchAllClass() {
         return List.of(new ClassResponse(
             0L,
