@@ -2,9 +2,9 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/java-postgres
 {
 	"name": "api develop",
-	"dockerComposeFile": "../docker-compose.yml",
+	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/api",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"customizations": {
 		"vscode": {
 			"extensions": [
