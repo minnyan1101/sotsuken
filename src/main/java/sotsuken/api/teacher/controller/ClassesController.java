@@ -33,7 +33,7 @@ public class ClassesController {
     }
 
     @PostMapping("/{classId}")
-    public ClassResponse fetcheditClass(
+    public ClassResponse editClass(
         @PathVariable("className") String className,
         @RequestBody EditClassRequest editclass
     ) {

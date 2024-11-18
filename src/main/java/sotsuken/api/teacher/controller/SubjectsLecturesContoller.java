@@ -23,14 +23,14 @@ public class SubjectsLecturesContoller {
     }
 
     @GetMapping("") // 授業のコマ一覧表示（講義一覧）
-    public List<SubjectLectureResponse> lectureList(
+    public List<SubjectLectureResponse> fetchAllLecture(
             @PathVariable("subjectId") Long subjectId) {
         return List.of(new SubjectLectureResponse(
                 0L, 0L, "xxx", LocalDate.now(), 0L, 0L));
     }
 
     @GetMapping("/{lectureId}") // 講義の編集画面の表示（講義の編集）
-    public SubjectLectureResponse editLecturelist(
+    public SubjectLectureResponse fetchLecture(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId) {
         return new SubjectLectureResponse(
@@ -47,7 +47,7 @@ public class SubjectsLecturesContoller {
     }
 
     @GetMapping("/{lectureId}/students")//出欠確認画面の表示（生徒の出欠編集）
-    public List<StudentLectureAttendanceResponce> AttendanceEdit(
+    public List<StudentLectureAttendanceResponce> fetchAllAttendance(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureIdLong) {
         return List.of(new StudentLectureAttendanceResponce(
@@ -55,12 +55,12 @@ public class SubjectsLecturesContoller {
     }
 
     @PostMapping("/{lectureId}/students/{studentId}")//出欠確認画面の編集（生徒の出欠編集）
-    public List<StudentLectureAttendanceResponce> AttendanceEdit(
+    public StudentLectureAttendanceResponce editAttendance(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureIdLong,
             @PathVariable("studentId") Long studentId) {
-        return List.of(new StudentLectureAttendanceResponce(
-                0L, 0L, 0L, "xxx", true, false));
+        return new StudentLectureAttendanceResponce(
+                0L, 0L, 0L, "xxx", true, false);
     }
 
 }
