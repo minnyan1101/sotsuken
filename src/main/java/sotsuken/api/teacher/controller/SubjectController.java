@@ -49,9 +49,9 @@ public class SubjectController {
     }
 
     @PostMapping("/{subjectId}") // 授業内容の編集
-    public SubjectResponse EditSubject(
+    public SubjectResponse editSubject(
             @PathVariable("subjectId") Long subjectId,
-            @RequestBody EditSubjectRequest EditSubject) {
+            @RequestBody EditSubjectRequest editSubject) {
         return new SubjectResponse(
                 0L,
                 "xxx",
