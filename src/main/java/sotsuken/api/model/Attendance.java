@@ -3,14 +3,21 @@ package sotsuken.api.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "attendances")
 public class Attendance {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JoinColumn(name = "lecture_id")
     private Lecture lecture;
     @Enumerated(EnumType.STRING)
     private AttendanceState state;
@@ -37,11 +44,24 @@ public class Attendance {
         return state;
     }
 
+    public void changeState(AttendanceState newState) {
+        this.state = newState;
+    }
+
     public boolean isLateness() {
         return isLateness;
     }
 
+    public void changeLateness(boolean isLateness) {
+        this.isLateness = isLateness;
+    }
+
     public boolean isLeaveEarly() {
         return isLeaveEarly;
+    }
+
+    
+    public void isLeaveEarly(boolean isLeaveEarly) {
+        this.isLeaveEarly = isLeaveEarly;
     }
 }
