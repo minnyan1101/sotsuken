@@ -19,8 +19,12 @@ public class Attendance {
     @ManyToOne
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
     @Enumerated(EnumType.STRING)
     private AttendanceState state;
+
     private boolean isLateness;
     private boolean isLeaveEarly;
 
@@ -39,6 +43,15 @@ public class Attendance {
     public Lecture getLecture() {
         return lecture;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
 
     public AttendanceState getState() {
         return state;

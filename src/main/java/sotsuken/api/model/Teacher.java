@@ -1,8 +1,6 @@
 package sotsuken.api.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,19 +8,18 @@ import jakarta.persistence.Table;
 @Table(name = "teachers")
 public class Teacher {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
 
     public Teacher() {
     }
 
-    public Teacher(Long id, String name) {
+    public Teacher(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
