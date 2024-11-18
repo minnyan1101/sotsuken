@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +27,8 @@ public class LoginController {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired
-    SecurityContextRepository securityContextRepository;
+    private SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
+    ;
 
     @PostMapping("/login")
     public LoginResponse login(

@@ -22,7 +22,7 @@ public class UserInfoController {
     }
     
     public record UserInfoResponse(
-        String user_id,
+        String id,
         String role
     ) {
     }
