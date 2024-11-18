@@ -1,8 +1,6 @@
 package sotsuken.api.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,8 +10,7 @@ import jakarta.persistence.Table;
 @Table(name = "students")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
     @ManyToOne
     @JoinColumn(name = "class_id")
@@ -22,13 +19,13 @@ public class Student {
     public Student() {
     }
 
-    public Student(Long id, String name, Class studentClass) {
+    public Student(String id, String name, Class studentClass) {
         this.id = id;
         this.name = name;
         this.studentClass = studentClass;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
