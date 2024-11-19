@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import sotsuken.api.teacher.service.CreateClassesUseCase;
+import sotsuken.api.teacher.service.EditClassesUseCase;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class ClassesController {
 
     @Autowired
     CreateClassesUseCase createClassesUseCase;
+    EditClassesUseCase editClassesUseCase;
 
     @GetMapping("")//クラス一覧表示
     public List<ClassResponse> fetchAllClass() {
@@ -38,12 +40,10 @@ public class ClassesController {
 
     @PostMapping("/{classId}")
     public ClassResponse editClass(
-        @PathVariable("className") String className,
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable("classId") Long classId,
         @RequestBody EditClassRequest editclass
     ) {
-        return new ClassResponse(
-            0L,
-            "xxx"
-        );
+        return editClassesUseCase.handle(userDetails.getUsername(), classId, editclass.className);
     }
 }

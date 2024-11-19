@@ -6,4 +6,6 @@ import sotsuken.api.model.Class;
 
 public interface ClassRepository extends JpaRepository<Class, Long> {
 
+    java.lang.Class save(java.lang.Class newClass);
+
 }
