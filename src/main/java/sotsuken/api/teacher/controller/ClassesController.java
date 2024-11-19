@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import sotsuken.api.teacher.service.CreateClassesUseCase;
 import sotsuken.api.teacher.service.EditClassesUseCase;
+import sotsuken.api.teacher.service.FetchAllClassesUseCase;
 
 import java.util.List;
 
@@ -22,15 +23,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ClassesController {
 
     @Autowired
+    FetchAllClassesUseCase fetchAllClassesUseCase;
     CreateClassesUseCase createClassesUseCase;
     EditClassesUseCase editClassesUseCase;
 
     @GetMapping("")//クラス一覧表示
-    public List<ClassResponse> fetchAllClass() {
-        return List.of(new ClassResponse(
-            0L,
-            "xxx"
-        ));
+    public List<ClassResponse> fetchAllClass(@AuthenticationPrincipal UserDetails userDetails) {
+        return fetchAllClassesUseCase.handle(userDetails.getUsername());
     }
     
     @PostMapping("")
