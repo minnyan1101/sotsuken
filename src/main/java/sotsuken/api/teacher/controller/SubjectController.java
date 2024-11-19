@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import sotsuken.api.teacher.service.CreateClassesUseCase;
+import sotsuken.api.teacher.service.CreateSubjectUseCase;
 import sotsuken.api.teacher.service.FetchAllSubjectUseCase;
 import sotsuken.api.teacher.service.FetchSubjectUseCase;
 
@@ -28,26 +29,26 @@ public class SubjectController {
     @Autowired
     FetchAllSubjectUseCase fetchAllSubjectUseCase;
 
+    @Autowired
+    CreateSubjectUseCase createSubjectUseCase;
+
     @GetMapping("") // 授業一覧表示
     public List<SubjectResponse> fetchAllSubject(@AuthenticationPrincipal UserDetails userDetails) {
         return fetchAllSubjectUseCase.handle(userDetails.getUsername());
     }
 
     @PostMapping("") // 新しく授業を作成
-    public SubjectResponse createSubject(@RequestBody CreateSubjectRequest createsubject) {
-        return new SubjectResponse(
-                0L,
-                "xxx",
-                LocalDate.now(),
-                LocalDate.now(),
-                "xxx",
-                List.of("xxx"));
+    public SubjectResponse createSubject(@AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody CreateSubjectRequest createsubject) {
+        return createSubjectUseCase.handle(userDetails.getUsername(), createsubject.subjectName,
+                createsubject.startDate, createsubject.finishDate, createsubject.teacherId, createsubject.studentIds);
     }
 
     @GetMapping("/{subjectId}") // 授業データの取得
-    public SubjectResponse fetchSubject(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("subjectId") Long subjectId) {
-        return fetchSubjectUseCase.handle(userDetails.getUsername(),subjectId);
-             
+    public SubjectResponse fetchSubject(@AuthenticationPrincipal UserDetails userDetails,
+            @PathVariable("subjectId") Long subjectId) {
+        return fetchSubjectUseCase.handle(userDetails.getUsername(), subjectId);
+
     }
 
     @PostMapping("/{subjectId}") // 授業内容の編集
