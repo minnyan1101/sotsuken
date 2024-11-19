@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -31,7 +33,8 @@ public class Subject {
     @JoinColumn(name = "subject_id")
     private List<Lecture> lectures;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name = "subjects_students")
     private List<Student> joinedStudents;
 
     public Subject() {
@@ -93,7 +96,7 @@ public class Subject {
         return finishDate;
     }
 
-    public void changeFInishDate(LocalDate newFinishDate) {
+    public void changeFinishDate(LocalDate newFinishDate) {
         validateStartDateToFinishDate(this.startDate, newFinishDate);
 
         this.finishDate = newFinishDate;
@@ -126,5 +129,9 @@ public class Subject {
 
     public List<Student> getJoinedStudents() {
         return joinedStudents;
+    }
+
+    public void setJoinedStudents(List<Student> students) {
+        this.joinedStudents = students;
     }
 }
