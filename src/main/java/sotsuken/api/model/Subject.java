@@ -1,6 +1,7 @@
 package sotsuken.api.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -98,6 +99,10 @@ public class Subject {
         this.finishDate = newFinishDate;
     }
 
+    public String getTeacherId() {
+        return teacher.getId();
+    }
+
     public Teacher getTeacher() {
         return teacher;
     }
@@ -108,6 +113,15 @@ public class Subject {
 
     public List<Lecture> getLectures() {
         return lectures;
+    }
+
+    public List<String> getJoinedStudentIds() {
+        List<String> res = new ArrayList<>();
+        for (Student student: joinedStudents) {
+            res.add(student.getId());
+        }
+
+        return res;
     }
 
     public List<Student> getJoinedStudents() {
