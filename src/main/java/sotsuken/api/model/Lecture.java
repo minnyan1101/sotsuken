@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -24,10 +25,10 @@ public class Lecture {
     private Long periods;
     private Long joinCode;
     @OneToMany
+    @JoinColumn(name = "lecture_id")
     private List<Attendance> attendanceStudents;
 
-    public Lecture() {
-    }
+    public Lecture() {}
 
     public Lecture(Long id, String name, Subject subject, LocalDate startDate, Long periods, Long joinCode,
             List<Attendance> attendanceStudents) {

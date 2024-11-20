@@ -4,5 +4,5 @@ create table attendances (
     student_id text references students(id) not null,
     state text not null,
     is_lateness boolean not null,
-    is_leaveEarly boolean not null
+    is_leave_early boolean not null
 )

@@ -28,9 +28,12 @@ public class Attendance {
     private boolean isLateness;
     private boolean isLeaveEarly;
 
-    public Attendance(Long id, Lecture lecture, AttendanceState state, boolean isLateness, boolean isLeaveEarly) {
+    public Attendance() {}
+
+    public Attendance(Long id, Lecture lecture, Student student, AttendanceState state, boolean isLateness, boolean isLeaveEarly) {
         this.id = id;
         this.lecture = lecture;
+        this.student = student;
         this.state = state;
         this.isLateness = isLateness;
         this.isLeaveEarly = isLeaveEarly;
