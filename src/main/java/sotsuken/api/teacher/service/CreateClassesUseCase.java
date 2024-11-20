@@ -3,20 +3,20 @@ package sotsuken.api.teacher.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sotsuken.api.model.Class;
-import sotsuken.api.repository.ClassRepository;
-import sotsuken.api.teacher.controller.ClassResponse;
+import sotsuken.api.model.StudentClass;
+import sotsuken.api.repository.StudentClassRepository;
+import sotsuken.api.teacher.controller.StudentClassResponse;
 
 @Service
 public class CreateClassesUseCase {
 
     @Autowired
-    ClassRepository classRepository;
+    StudentClassRepository studentClassRepository;
     
-    public ClassResponse handle(String user_id, String className) {
-        Class newClass = new Class(null, className);
-        Class savedClass = classRepository.save(newClass);
+    public StudentClassResponse handle(String user_id, String className) {
+        StudentClass newClass = new StudentClass(null, className);
+        StudentClass savedClass = studentClassRepository.save(newClass);
 
-        return new ClassResponse(savedClass.getId(), savedClass.getName());
+        return new StudentClassResponse(savedClass.getId(), savedClass.getName());
     }
 }

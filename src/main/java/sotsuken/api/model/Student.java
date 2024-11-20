@@ -14,12 +14,12 @@ public class Student {
     private String name;
     @ManyToOne
     @JoinColumn(name = "class_id")
-    private Class studentClass;
+    private StudentClass studentClass;
 
     public Student() {
     }
 
-    public Student(String id, String name, Class studentClass) {
+    public Student(String id, String name, StudentClass studentClass) {
         this.id = id;
         this.name = name;
         this.studentClass = studentClass;
@@ -33,7 +33,7 @@ public class Student {
         return name;
     }
 
-    public Class getStudentClass() {
+    public StudentClass getStudentClass() {
         return studentClass;
     }
 
@@ -41,7 +41,7 @@ public class Student {
         this.name = newName;
     }
 
-    public void changeClass(Class newClass) {
+    public void changeClass(StudentClass newClass) {
         this.studentClass = newClass;
     }
 

@@ -6,22 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sotsuken.api.model.Class;
-import sotsuken.api.repository.ClassRepository;
-import sotsuken.api.teacher.controller.ClassResponse;
+import sotsuken.api.model.StudentClass;
+import sotsuken.api.repository.StudentClassRepository;
+import sotsuken.api.teacher.controller.StudentClassResponse;
 
 @Service
 public class FetchAllClassesUseCase {
     
     @Autowired
-    ClassRepository classRepository;
+    StudentClassRepository studentClassRepository;
 
-    public List<ClassResponse> handle(String userId) {
-        List<Class> classes = classRepository.findAll();
+    public List<StudentClassResponse> handle(String userId) {
+        List<StudentClass> classes = studentClassRepository.findAll();
 
-        List<ClassResponse> res = new ArrayList<>();
-        for (Class clazz: classes) {
-            res.add(new ClassResponse(clazz.getId(), clazz.getName()));
+        List<StudentClassResponse> res = new ArrayList<>();
+        for (StudentClass clazz: classes) {
+            res.add(new StudentClassResponse(clazz.getId(), clazz.getName()));
         }
         return res;
     }

@@ -2,6 +2,8 @@ package sotsuken.api.teacher.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import sotsuken.api.teacher.service.FetchAllStudentUseCase;
 import sotsuken.api.teacher.service.FetchStudentUseCase;
 
 import java.util.List;
@@ -22,12 +24,13 @@ public class StudentController {
 
     @Autowired
     FetchStudentUseCase fetchStudentUseCase;
+    FetchAllStudentUseCase fetchAllStudentUseCase;
 
     @GetMapping("")//学生一覧の表示(学生一覧)
-    public List<StudentStatusResponse> fetchAllStudents(@RequestParam("classId") Long classId) {
-        return List.of(new StudentStatusResponse(
-            "", "xxx", 0L, "Class"
-        ));
+    public List<StudentStatusResponse> fetchAllStudents(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @RequestParam("classId") Long classId) {
+        return fetchAllStudentUseCase.handle(userDetails.getUsername(), classId);
     }
 
     @GetMapping("/{studentId}")//学生１人の情報を表示（学生詳細）
