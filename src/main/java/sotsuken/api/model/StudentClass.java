@@ -8,16 +8,16 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "classes")
-public class Class {
+public class StudentClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    public Class() {
+    public StudentClass() {
     }
 
-    public Class(Long id, String name) {
+    public StudentClass(Long id, String name) {
         this.id = id;
         this.name = name;
     }

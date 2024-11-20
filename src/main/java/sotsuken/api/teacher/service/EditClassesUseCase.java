@@ -5,23 +5,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.ErrorResponseException;
 
-import sotsuken.api.model.Class;
-import sotsuken.api.repository.ClassRepository;
-import sotsuken.api.teacher.controller.ClassResponse;
+import sotsuken.api.model.StudentClass;
+import sotsuken.api.repository.StudentClassRepository;
+import sotsuken.api.teacher.controller.StudentClassResponse;
 
 @Service
 public class EditClassesUseCase {
     
     @Autowired
-    ClassRepository classRepository;
+    StudentClassRepository studentClassRepository;
 
-    public ClassResponse handle(String userId, Long classId, String className) {
-        Class editClass = classRepository.findById(classId).orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
+    public StudentClassResponse handle(String userId, Long classId, String className) {
+        StudentClass editClass = studentClassRepository.findById(classId).orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
 
         editClass.changeName(className);
 
-        Class savedClass = classRepository.save(editClass);
+        StudentClass savedClass = studentClassRepository.save(editClass);
 
-        return new ClassResponse(savedClass.getId(), savedClass.getName());
+        return new StudentClassResponse(savedClass.getId(), savedClass.getName());
     }
 }
