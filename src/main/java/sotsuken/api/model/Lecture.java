@@ -17,6 +17,7 @@ public class Lecture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     @ManyToOne
     private Subject subject;
     private LocalDate startDate;
@@ -28,9 +29,10 @@ public class Lecture {
     public Lecture() {
     }
 
-    public Lecture(Long id, Subject subject, LocalDate startDate, Long periods, Long joinCode,
+    public Lecture(Long id, String name, Subject subject, LocalDate startDate, Long periods, Long joinCode,
             List<Attendance> attendanceStudents) {
         this.id = id;
+        this.name = name;
         this.subject = subject;
         this.startDate = startDate;
         this.periods = periods;
@@ -40,6 +42,14 @@ public class Lecture {
 
     public Long getId() {
         return id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void changeName(String name) {
+        this.name = name;
     }
 
     public Subject getSubject() {
