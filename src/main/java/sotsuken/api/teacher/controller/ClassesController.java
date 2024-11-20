@@ -28,17 +28,17 @@ public class ClassesController {
     EditClassesUseCase editClassesUseCase;
 
     @GetMapping("")//クラス一覧表示
-    public List<ClassResponse> fetchAllClass(@AuthenticationPrincipal UserDetails userDetails) {
+    public List<StudentClassResponse> fetchAllClass(@AuthenticationPrincipal UserDetails userDetails) {
         return fetchAllClassesUseCase.handle(userDetails.getUsername());
     }
     
     @PostMapping("")
-    public ClassResponse createClass(@AuthenticationPrincipal UserDetails userDetails, @RequestBody CreateClassRequest createclass) {
+    public StudentClassResponse createClass(@AuthenticationPrincipal UserDetails userDetails, @RequestBody CreateClassRequest createclass) {
         return createClassesUseCase.handle(userDetails.getUsername(), createclass.className);
     }
 
     @PostMapping("/{classId}")
-    public ClassResponse editClass(
+    public StudentClassResponse editClass(
         @AuthenticationPrincipal UserDetails userDetails,
         @PathVariable("classId") Long classId,
         @RequestBody EditClassRequest editclass
