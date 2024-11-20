@@ -3,6 +3,9 @@ package sotsuken.api.teacher.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,9 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import sotsuken.api.teacher.service.FetchAllLectureUseCase;
+
 @RestController
 @RequestMapping("/api/teacher/subjects/{subjectId}/lectures")
 public class SubjectsLecturesContoller {
+
+    @Autowired
+    FetchAllLectureUseCase fetchAllLectureUseCase;
+
     @PostMapping("") // コマを追加する処理（講義追加）
     public SubjectLectureResponse addLecture(
             @PathVariable("subjectId") Long subjectId,
@@ -24,9 +33,9 @@ public class SubjectsLecturesContoller {
 
     @GetMapping("") // 授業のコマ一覧表示（講義一覧）
     public List<SubjectLectureResponse> fetchAllLecture(
+            @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId) {
-        return List.of(new SubjectLectureResponse(
-                0L, 0L, "xxx", LocalDate.now(), 0L, 0L));
+        return fetchAllLectureUseCase.handle(userDetails.getUsername(),subjectId);
     }
 
     @GetMapping("/{lectureId}") // 講義の編集画面の表示（講義の編集）
