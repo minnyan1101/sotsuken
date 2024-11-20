@@ -12,16 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import sotsuken.api.teacher.service.FetchAllLectureUseCase;
+import sotsuken.api.teacher.service.FetchLectureUseCase;
 
 @RestController
 @RequestMapping("/api/teacher/subjects/{subjectId}/lectures")
 public class SubjectsLecturesContoller {
-
+    
     @Autowired
     FetchAllLectureUseCase fetchAllLectureUseCase;
 
+    @Autowired
+    FetchLectureUseCase fetchLectureUseCase;
     @PostMapping("") // コマを追加する処理（講義追加）
     public SubjectLectureResponse addLecture(
             @PathVariable("subjectId") Long subjectId,
@@ -40,10 +42,10 @@ public class SubjectsLecturesContoller {
 
     @GetMapping("/{lectureId}") // 講義の編集画面の表示（講義の編集）
     public SubjectLectureResponse fetchLecture(
+            @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId) {
-        return new SubjectLectureResponse(
-                0L, 0L, "xxx", LocalDate.now(), 0L, 0L);
+        return fetchLectureUseCase.handle(userDetails.getUsername(), subjectId, lectureId);
     }
 
     @PostMapping("/{lectureId}") // 講義の編集処理（講義の編集）

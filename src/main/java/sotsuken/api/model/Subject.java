@@ -118,6 +118,15 @@ public class Subject {
         return lectures;
     }
 
+    public boolean containLectureById(Long lectureId) {
+        for (Lecture lecture: lectures) {
+            if (lecture.getId().equals(lectureId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<String> getJoinedStudentIds() {
         List<String> res = new ArrayList<>();
         for (Student student: joinedStudents) {
