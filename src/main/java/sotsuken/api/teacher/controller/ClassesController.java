@@ -24,7 +24,11 @@ public class ClassesController {
 
     @Autowired
     FetchAllClassesUseCase fetchAllClassesUseCase;
+    
+    @Autowired
     CreateClassesUseCase createClassesUseCase;
+    
+    @Autowired
     EditClassesUseCase editClassesUseCase;
 
     @GetMapping("")//クラス一覧表示
