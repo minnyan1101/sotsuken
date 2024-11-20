@@ -3,12 +3,11 @@ package sotsuken.api.teacher.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sotsuken.api.teacher.service.CreateClassesUseCase;
 import sotsuken.api.teacher.service.CreateSubjectUseCase;
+import sotsuken.api.teacher.service.EditSubjectUseCase;
 import sotsuken.api.teacher.service.FetchAllSubjectUseCase;
 import sotsuken.api.teacher.service.FetchSubjectUseCase;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +30,9 @@ public class SubjectController {
 
     @Autowired
     CreateSubjectUseCase createSubjectUseCase;
+    
+    @Autowired
+    EditSubjectUseCase editSubjectUseCase;
 
     @GetMapping("") // 授業一覧表示
     public List<SubjectResponse> fetchAllSubject(@AuthenticationPrincipal UserDetails userDetails) {
@@ -53,15 +55,9 @@ public class SubjectController {
 
     @PostMapping("/{subjectId}") // 授業内容の編集
     public SubjectResponse editSubject(
+            @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId,
             @RequestBody EditSubjectRequest editSubject) {
-        return new SubjectResponse(
-                0L,
-                "xxx",
-                LocalDate.now(),
-                LocalDate.now(),
-                "xxx",
-                List.of("xxx"));
+        return editSubjectUseCase.handle(userDetails.getUsername(), subjectId, editSubject.subjectName, editSubject.startDate, editSubject.finishDate, editSubject.teacherId, editSubject.studentIds);
     }
-
 }
