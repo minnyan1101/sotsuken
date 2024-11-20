@@ -44,4 +44,12 @@ public class Student {
     public void changeClass(Class newClass) {
         this.studentClass = newClass;
     }
+
+    public String getClassName() {
+        return this.studentClass.getName();
+    }
+
+    public Long getClassId() {
+        return this.studentClass.getId();
+    }
 }
