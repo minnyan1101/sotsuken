@@ -29,13 +29,13 @@ public class Teacher {
             throw new TeacherIdValidationException();
         }
 
-        // idの頭文字がS（大文字）である
-        if ( ! id.startsWith("S")) {
+        // idの頭文字がT（大文字）である
+        if ( ! id.startsWith("T")) {
             throw new TeacherIdValidationException();
         }
 
         // idの頭文字以降は数字のみで構成される
-        if ( ! id.matches("^S[0-9]+$")) {
+        if ( ! id.matches("^T[0-9]+$")) {
             throw new TeacherIdValidationException();
         }
     }
@@ -47,7 +47,7 @@ public class Teacher {
         }
 
         // nameは一行からなる
-        if ( ! (name.matches(".*\\v.*"))) { // 改行に類する空白文字が文字例に含まれているか確認している
+        if ( ! (name.matches(".*\\v.*"))) { // 改行に類する空白文字が文字列に含まれているか確認している
             throw new TeacherNameValidationException();
         }
     }
