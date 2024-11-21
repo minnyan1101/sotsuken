@@ -127,6 +127,10 @@ public class Subject {
         return false;
     }
 
+    public int totalLectures() {
+        return this.lectures.size();
+    }
+
     public List<String> getJoinedStudentIds() {
         List<String> res = new ArrayList<>();
         for (Student student: joinedStudents) {
