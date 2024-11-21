@@ -76,8 +76,7 @@ public class Attendance {
         return isLeaveEarly;
     }
 
-    
-    public void isLeaveEarly(boolean isLeaveEarly) {
+    public void changeLeaveEarly(boolean isLeaveEarly) {
         this.isLeaveEarly = isLeaveEarly;
     }
 }

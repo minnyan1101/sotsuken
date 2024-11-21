@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import sotsuken.api.teacher.service.EditLectureUseCase;
 import sotsuken.api.teacher.service.FetchAllAttendanceUseCase;
 import sotsuken.api.teacher.service.AddLectureUseCase;
+import sotsuken.api.teacher.service.EditAttendanceUseCase;
 import sotsuken.api.teacher.service.FetchAllLectureUseCase;
 import sotsuken.api.teacher.service.FetchLectureUseCase;
 
 @RestController
 @RequestMapping("/api/teacher/subjects/{subjectId}/lectures")
 public class SubjectsLecturesContoller {
-    
+
     @Autowired
     FetchAllLectureUseCase fetchAllLectureUseCase;
 
@@ -36,13 +37,16 @@ public class SubjectsLecturesContoller {
 
     @Autowired
     AddLectureUseCase addLectureUseCase;
-    
+
+    @Autowired
+    EditAttendanceUseCase editAttendanceUseCase;
+
     @PostMapping("") // コマを追加する処理（講義追加）
     public List<SubjectLectureResponse> addLecture(
             @PathVariable("subjectId") Long subjectId,
             @AuthenticationPrincipal UserDetails userDetails,
             @RequestBody List<CreateSubjectLectureRequest> reqeust) {
-        return addLectureUseCase.handle(userDetails.getUsername(),subjectId,reqeust);
+        return addLectureUseCase.handle(userDetails.getUsername(), subjectId, reqeust);
 
     }
 
@@ -50,7 +54,7 @@ public class SubjectsLecturesContoller {
     public List<SubjectLectureResponse> fetchAllLecture(
             @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId) {
-        return fetchAllLectureUseCase.handle(userDetails.getUsername(),subjectId);
+        return fetchAllLectureUseCase.handle(userDetails.getUsername(), subjectId);
     }
 
     @GetMapping("/{lectureId}") // 講義の編集画面の表示（講義の編集）
@@ -69,20 +73,22 @@ public class SubjectsLecturesContoller {
         return editLectureUseCase.handle(subjectId, lectureId, reqeust.lectureName, reqeust.date, reqeust.periods);
     }
 
-    @GetMapping("/{lectureId}/students")//出欠確認画面の表示（生徒の出欠編集）
+    @GetMapping("/{lectureId}/students") // 出欠確認画面の表示（生徒の出欠編集）
     public List<StudentLectureAttendanceResponce> fetchAllAttendance(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId) {
         return fetchAllAttendanceUseCase.handle(subjectId, lectureId);
     }
 
-    @PostMapping("/{lectureId}/students/{studentId}")//出欠確認画面の編集（生徒の出欠編集）
+    @PostMapping("/{lectureId}/students/{studentId}") // 出欠確認画面の編集（生徒の出欠編集）
     public StudentLectureAttendanceResponce editAttendance(
+            @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId,
-            @PathVariable("lectureId") Long lectureIdLong,
-            @PathVariable("studentId") Long studentId) {
-        return new StudentLectureAttendanceResponce(
-                0L, 0L, 0L, "xxx", true, false);
+            @PathVariable("lectureId") Long lectureId,
+            @PathVariable("studentId") String studentId,
+            @RequestBody EditAttendanceRequest request) {
+        return editAttendanceUseCase.handle(userDetails.getUsername(), subjectId, lectureId, studentId, request.state,
+                request.isLateness, request.isLeaveEarly);
     }
 
 }
