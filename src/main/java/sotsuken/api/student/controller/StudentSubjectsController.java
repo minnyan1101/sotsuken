@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import sotsuken.api.student.service.FetchAllSubjectsUseCase;
 import sotsuken.api.student.service.FetchSubjectReportUseCase;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

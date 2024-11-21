@@ -30,15 +30,13 @@ public class Lecture {
 
     public Lecture() {}
 
-    public Lecture(Long id, String name, Subject subject, LocalDate startDate, Long periods, Long joinCode,
-            List<Attendance> attendanceStudents) {
+    public Lecture(Long id, String name, Subject subject, LocalDate startDate, Long periods, Long joinCode) {
         this.id = id;
         this.name = name;
         this.subject = subject;
         this.startDate = startDate;
         this.periods = periods;
         this.joinCode = joinCode;
-        this.attendanceStudents = attendanceStudents;
     }
 
     public Long getId() {
@@ -83,5 +81,9 @@ public class Lecture {
 
     public List<Attendance> getAttendanceStudents() {
         return attendanceStudents;
+    }
+
+    public void setAttendanceStudents(List<Attendance> attendances) {
+        this.attendanceStudents = attendances;
     }
 }
