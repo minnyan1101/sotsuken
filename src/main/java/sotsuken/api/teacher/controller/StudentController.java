@@ -3,6 +3,7 @@ package sotsuken.api.teacher.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import sotsuken.api.teacher.service.ChangeStudentStatusUseCase;
 import sotsuken.api.teacher.service.FetchAllStudentUseCase;
 import sotsuken.api.teacher.service.FetchStudentUseCase;
 
@@ -24,7 +25,12 @@ public class StudentController {
 
     @Autowired
     FetchStudentUseCase fetchStudentUseCase;
+    
+    @Autowired
     FetchAllStudentUseCase fetchAllStudentUseCase;
+
+    @Autowired
+    ChangeStudentStatusUseCase changeStudentStatusUseCase;
 
     @GetMapping("")//学生一覧の表示(学生一覧)
     public List<StudentStatusResponse> fetchAllStudents(
@@ -41,11 +47,11 @@ public class StudentController {
 
     @PostMapping("/{studentId}")//学生情報の更新処理（学生詳細）
     public StudentStatusResponse changeStudentStatus(
-        @PathVariable("studentId") Long studentId,
-        @RequestBody StudentRequest reqeust
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable("studentId") String studentId,
+        @RequestBody StudentRequest request
     ){            
-        return new StudentStatusResponse("", "xxx", 0L, "xxx");
+        return changeStudentStatusUseCase.handle(userDetails.getUsername(), studentId, request.studentName, request.classId);
     }
-    
 }
     
