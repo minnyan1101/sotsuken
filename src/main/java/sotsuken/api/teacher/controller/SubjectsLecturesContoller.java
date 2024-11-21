@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import sotsuken.api.teacher.service.EditLectureUseCase;
 import sotsuken.api.teacher.service.FetchAllLectureUseCase;
 import sotsuken.api.teacher.service.FetchLectureUseCase;
 
@@ -23,7 +25,11 @@ public class SubjectsLecturesContoller {
     FetchAllLectureUseCase fetchAllLectureUseCase;
 
     @Autowired
+    EditLectureUseCase editLectureUseCase;
+
+    @Autowired
     FetchLectureUseCase fetchLectureUseCase;
+
     @PostMapping("") // コマを追加する処理（講義追加）
     public SubjectLectureResponse addLecture(
             @PathVariable("subjectId") Long subjectId,
@@ -53,8 +59,7 @@ public class SubjectsLecturesContoller {
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId,
             @RequestBody EditSubjectLectureRequest reqeust) {
-        return new SubjectLectureResponse(
-                0L, 0L, "xxx", LocalDate.now(), 0L, 0L);
+        return editLectureUseCase.handle(subjectId, lectureId, reqeust.lectureName, reqeust.date, reqeust.periods);
     }
 
     @GetMapping("/{lectureId}/students")//出欠確認画面の表示（生徒の出欠編集）
