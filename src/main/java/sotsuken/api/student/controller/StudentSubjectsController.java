@@ -3,8 +3,13 @@ package sotsuken.api.student.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import sotsuken.api.student.service.FetchSubjectReportUseCase;
+
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -12,6 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/api/students/subjects")
 public class StudentSubjectsController {
+
+    @Autowired
+    FetchSubjectReportUseCase fetchSubjectReportUseCase;
 
     @GetMapping("")
     public SubjectsResponse fetchAllSubjects() {
@@ -27,18 +35,10 @@ public class StudentSubjectsController {
     
     @GetMapping("/{subjectId}")
     public SubjectReportResponse fetchSubjectReport(
+        @AuthenticationPrincipal UserDetails userDetails,
         @PathVariable("subjectId") Long subjectId
     ) {
-        return new SubjectReportResponse(
-            0L,
-            "xxx",
-            "xxx",
-            0L,
-            0L,
-            0L,
-            0L,
-            0L
-        );
+        return fetchSubjectReportUseCase.hanlde(userDetails.getUsername(), subjectId);
     }
     
 }
