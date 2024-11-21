@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import sotsuken.api.teacher.service.EditLectureUseCase;
+import sotsuken.api.teacher.service.FetchAllAttendanceUseCase;
 import sotsuken.api.teacher.service.AddLectureUseCase;
 import sotsuken.api.teacher.service.FetchAllLectureUseCase;
 import sotsuken.api.teacher.service.FetchLectureUseCase;
@@ -29,6 +30,9 @@ public class SubjectsLecturesContoller {
 
     @Autowired
     FetchLectureUseCase fetchLectureUseCase;
+
+    @Autowired
+    FetchAllAttendanceUseCase fetchAllAttendanceUseCase;
 
     @Autowired
     AddLectureUseCase addLectureUseCase;
@@ -68,9 +72,8 @@ public class SubjectsLecturesContoller {
     @GetMapping("/{lectureId}/students")//出欠確認画面の表示（生徒の出欠編集）
     public List<StudentLectureAttendanceResponce> fetchAllAttendance(
             @PathVariable("subjectId") Long subjectId,
-            @PathVariable("lectureId") Long lectureIdLong) {
-        return List.of(new StudentLectureAttendanceResponce(
-                0L, 0L, 0L, "xxx", true, false));
+            @PathVariable("lectureId") Long lectureId) {
+        return fetchAllAttendanceUseCase.handle(subjectId, lectureId);
     }
 
     @PostMapping("/{lectureId}/students/{studentId}")//出欠確認画面の編集（生徒の出欠編集）
