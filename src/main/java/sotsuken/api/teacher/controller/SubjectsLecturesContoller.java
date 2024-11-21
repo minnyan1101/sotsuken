@@ -1,6 +1,5 @@
 package sotsuken.api.teacher.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sotsuken.api.teacher.service.EditLectureUseCase;
 import sotsuken.api.teacher.service.FetchAllAttendanceUseCase;
+import sotsuken.api.teacher.service.AddLectureUseCase;
 import sotsuken.api.teacher.service.FetchAllLectureUseCase;
 import sotsuken.api.teacher.service.FetchLectureUseCase;
 
@@ -34,12 +34,15 @@ public class SubjectsLecturesContoller {
     @Autowired
     FetchAllAttendanceUseCase fetchAllAttendanceUseCase;
 
+    @Autowired
+    AddLectureUseCase addLectureUseCase;
+    
     @PostMapping("") // コマを追加する処理（講義追加）
-    public SubjectLectureResponse addLecture(
+    public List<SubjectLectureResponse> addLecture(
             @PathVariable("subjectId") Long subjectId,
-            @RequestBody CreateSubjectLectureRequest reqeust) {
-        return new SubjectLectureResponse(
-                0L, 0L, "xxx", LocalDate.now(), 0L, 0L);
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody List<CreateSubjectLectureRequest> reqeust) {
+        return addLectureUseCase.handle(userDetails.getUsername(),subjectId,reqeust);
 
     }
 
