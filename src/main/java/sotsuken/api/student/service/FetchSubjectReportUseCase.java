@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.ErrorResponseException;
 
 import sotsuken.api.model.Attendance;
-import sotsuken.api.model.AttendanceState;
 import sotsuken.api.model.Lecture;
 import sotsuken.api.model.Student;
 import sotsuken.api.model.Subject;
