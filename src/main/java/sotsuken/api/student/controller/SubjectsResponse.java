@@ -8,7 +8,7 @@ public class SubjectsResponse {
     public String detail;
     public LocalDate startDate;
     public LocalDate endDate;
-    public Long teacherId;
+    public String teacherId;
 
     public SubjectsResponse(
         Long subjectId, 
@@ -16,7 +16,7 @@ public class SubjectsResponse {
         String detail, 
         LocalDate startDate, 
         LocalDate endDate,
-        Long teacherId)
+        String teacherId)
     {
 
         this.subjectId = subjectId;
