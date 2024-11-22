@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/api/auth")
 public class UserInfoController {
 
-    @GetMapping("/api/auth/userinfo")
+    @GetMapping("/userinfo")
     public UserInfoResponse fetchUserInfo(@AuthenticationPrincipal AccountUserDetails userDetails) {
         return new UserInfoResponse(
             userDetails.getUsername(),
