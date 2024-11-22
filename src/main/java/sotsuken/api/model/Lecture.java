@@ -48,7 +48,7 @@ public class Lecture {
             throw new LectureNameValidationException();
         }
 
-        if(! (name.matches(".*\\v.*"))){// 改行に類する空白文字が文字列に含まれているか確認している
+        if((name.matches(".*\\v.*"))){// 改行に類する空白文字が文字列に含まれているか確認している
             throw new LectureNameValidationException();
         }
     }
