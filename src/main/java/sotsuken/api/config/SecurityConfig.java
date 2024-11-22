@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,9 +24,19 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        .anyRequest().permitAll())
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/userinfo").authenticated()
+                        .requestMatchers("/api/student/register", "/api/student/classes").permitAll()
+                        .requestMatchers("/api/student/**").hasRole("STUDENT")
+                        .requestMatchers("/api/teachers/**").hasRole("TEACHER")
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
+                        .requestMatchers("/swagger-resource/**").permitAll()
+                        .anyRequest().denyAll())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.NEVER))
+                .authenticationProvider(new DaoAuthenticationProvider())
                 .requestCache(cache -> cache
                         .requestCache(new NullRequestCache()))
                 .httpBasic(basic -> basic.disable())
@@ -39,7 +50,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder) {
-        return new ProviderManager(new DaoAuthenticationProvider(passwordEncoder));
+    public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
+        DaoAuthenticationProvider dao = new DaoAuthenticationProvider(passwordEncoder);
+        dao.setUserDetailsService(userDetailsService);
+        return new ProviderManager(dao);
     }
 }

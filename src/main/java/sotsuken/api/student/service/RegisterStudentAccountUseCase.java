@@ -44,7 +44,7 @@ public class RegisterStudentAccountUseCase {
         }
 
         String passwordHash = passwordEncoder.encode(password);
-        Account newAccount = new Account(password, passwordHash, AccountType.STUDENT);
+        Account newAccount = new Account(newStudentId, passwordHash, AccountType.STUDENT);
         Student newStudent = new Student(newStudentId, newStudentName, studentClass);
 
         accountRepository.saveAndFlush(newAccount);
