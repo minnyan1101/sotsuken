@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import sotsuken.api.model.exception.SubjectDateValidationException;
+import sotsuken.api.model.exception.SubjectNameValidationException;
 
 @Entity
 @Table(name = "subjects")
@@ -43,6 +44,7 @@ public class Subject {
 
     public Subject(Long id, String name, String detail, LocalDate startDate, LocalDate finishDate, Teacher teacher,
             List<Lecture> lectures, List<Student> joinedStudents) {
+        nameValidation(name);
         this.id = id;
         this.name = name;
         this.detail = detail;
@@ -54,6 +56,18 @@ public class Subject {
 
         validateStartDateToFinishDate(startDate, finishDate);
     }
+
+    private static void nameValidation(String name) {
+        // nameは1~32文字
+        if ( ! (1 <= name.length() && name.length() <=32)) {
+            throw new SubjectNameValidationException();
+        }
+        // nameは1行からなる
+        if ( ! (name.matches(".*\\v.*"))) {
+            throw new SubjectNameValidationException();
+        }
+    }
+
 
     private static void validateStartDateToFinishDate(LocalDate startDate, LocalDate finishDate) {
         if (startDate.isBefore(finishDate)) {
@@ -72,6 +86,7 @@ public class Subject {
     }
 
     public void changeName(String newName) {
+        nameValidation(newName);
         this.name = newName;
     }
 
