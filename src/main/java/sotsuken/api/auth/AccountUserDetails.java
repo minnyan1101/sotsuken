@@ -17,13 +17,7 @@ public class AccountUserDetails implements UserDetails {
     }
 
     public String accountRole() {
-        String role;
-        if (this.account.isStudent()) {
-            role = "ROLE_STUDENT";
-        } else {
-            role = "ROLE_TEACHER";
-        }
-        return role;
+        return "ROLE_" + this.account.getAccountType().name();
     }
 
     @Override

@@ -14,8 +14,10 @@ public class Account {
     private String passwordHash;
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
+    
     public Account() {
     }
+
     public Account(String userName, String passwordHash, AccountType accountType) {
         this.userName = userName;
         this.passwordHash = passwordHash;
@@ -45,6 +47,10 @@ public class Account {
 
     public boolean isTeacher() {
         return this.accountType.equals(AccountType.TEACHER);
+    }
+
+    public boolean isAdmin() {
+        return this.accountType.equals(AccountType.ADMIN);
     }
     
 }
