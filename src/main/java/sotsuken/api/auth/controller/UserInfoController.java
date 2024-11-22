@@ -3,9 +3,8 @@ package sotsuken.api.auth.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sotsuken.api.auth.AccountUserDetails;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -14,16 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserInfoController {
 
     @GetMapping("/userinfo")
-    public UserInfoResponse fetchUserInfo(@AuthenticationPrincipal AccountUserDetails userDetails) {
+    public UserInfoResponse fetchUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
         return new UserInfoResponse(
-            userDetails.getUsername(),
-            userDetails.accountRole()
+            userDetails.getUsername()
         );
     }
     
     public record UserInfoResponse(
-        String id,
-        String role
+        String id
     ) {
     }
 }
