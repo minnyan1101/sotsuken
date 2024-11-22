@@ -63,7 +63,7 @@ public class Subject {
             throw new SubjectNameValidationException();
         }
         // nameは1行からなる
-        if ( ! (name.matches(".*\\v.*"))) {
+        if ( (name.matches(".*\\v.*"))) {
             throw new SubjectNameValidationException();
         }
     }
