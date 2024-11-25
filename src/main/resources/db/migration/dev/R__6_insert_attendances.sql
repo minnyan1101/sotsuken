@@ -1,0 +1,12 @@
+insert into attendances values (1, 1, 'S20210001', 'ABSENCE', false, false);
+insert into attendances values (2, 1, 'S20210002', 'ABSENCE', false, false);
+insert into attendances values (3, 1, 'S20210003', 'ABSENCE', false, false);
+insert into attendances values (4, 1, 'S20210004', 'ABSENCE', false, false);
+insert into attendances values (5, 2, 'S20210001', 'ABSENCE', false, false);
+insert into attendances values (6, 2, 'S20210002', 'ABSENCE', false, false);
+insert into attendances values (7, 2, 'S20210003', 'ABSENCE', false, false);
+insert into attendances values (8, 2, 'S20210004', 'ABSENCE', false, false);
+insert into attendances values (9, 3, 'S20210001', 'ABSENCE', false, false);
+insert into attendances values (10, 3, 'S20210002', 'ABSENCE', false, false);
+insert into attendances values (11, 3, 'S20210003', 'ABSENCE', false, false);
+insert into attendances values (12, 3, 'S20210004', 'ABSENCE', false, false);
