@@ -1,0 +1,12 @@
+insert into subjects_students values (1, 'S20210001');
+insert into subjects_students values (1, 'S20210002');
+insert into subjects_students values (1, 'S20210003');
+insert into subjects_students values (1, 'S20210004');
+insert into subjects_students values (2, 'S20210001');
+insert into subjects_students values (2, 'S20210002');
+insert into subjects_students values (2, 'S20210003');
+insert into subjects_students values (2, 'S20210004');
+insert into subjects_students values (3, 'S20210001');
+insert into subjects_students values (3, 'S20210002');
+insert into subjects_students values (3, 'S20210003');
+insert into subjects_students values (3, 'S20210004');
