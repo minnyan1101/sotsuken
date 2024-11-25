@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll()
                         .requestMatchers("/swagger-resource/**").permitAll()
-                        .anyRequest().denyAll())
+                        .anyRequest().authenticated()) // denyAllにすると、正しくレスポンスボディが返却されない問題
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.NEVER))
                 .authenticationProvider(new DaoAuthenticationProvider())
