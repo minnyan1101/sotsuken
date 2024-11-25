@@ -1,9 +1,9 @@
-insert into lectures VALUES (1, 'lecture 1', 1, '2024-1-1', 1, 1);
-insert into lectures VALUES (2, 'lecture 2', 1, '2024-1-8', 2, 2);
-insert into lectures VALUES (3, 'lecture 3', 1, '2024-1-15', 3, 3);
-insert into lectures VALUES (4, 'lecture 1', 2, '2024-1-1', 1, 1);
-insert into lectures VALUES (5, 'lecture 2', 2, '2024-1-8', 2, 2);
-insert into lectures VALUES (6, 'lecture 3', 2, '2024-1-15', 3, 3);
-insert into lectures VALUES (7, 'lecture 1', 3, '2024-1-1', 1, 1);
-insert into lectures VALUES (8, 'lecture 2', 3, '2024-1-8', 2, 2);
-insert into lectures VALUES (9, 'lecture 3', 3, '2024-1-15', 3, 3);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 1', 1, '2024-1-1', 1, 1);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 2', 1, '2024-1-8', 2, 2);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 3', 1, '2024-1-15', 3, 3);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 1', 2, '2024-1-1', 1, 1);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 2', 2, '2024-1-8', 2, 2);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 3', 2, '2024-1-15', 3, 3);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 1', 3, '2024-1-1', 1, 1);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 2', 3, '2024-1-8', 2, 2);
+insert into lectures (name, subject_id, start_date, periods, join_code) VALUES ('lecture 3', 3, '2024-1-15', 3, 3);
