@@ -60,3 +60,86 @@ Content-Type: application/json
 
 ###
 
+# @name subjectNameが空文字列の場合に400を返す
+POST  {{baseUrl}}/api/teacher/subjects/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName":"",
+  "startDate": "2024-01-01",
+  "finishDate": "2024-02-01",
+  "teacherId": "T00000001",
+  "studentIds": [
+    "S20210001"
+  ]
+}
+
+###
+
+# @name startDateがfinishDateよりも前の日付のときに400を返す
+POST  {{baseUrl}}/api/teacher/subjects/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-02-01",
+  "finishDate": "2024-01-01",
+  "teacherId": "T00000001",
+  "studentIds": [
+    "S20210001"
+  ]
+}
+
+###
+
+# @name teacherIdが存在しないIdを渡したとき400
+POST  {{baseUrl}}/api/teacher/subjects/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-01-01",
+  "finishDate": "2024-02-01",
+  "teacherId": "",
+  "studentIds": [
+    "S20210001"
+  ]
+}
+
+###
+
+# @name 存在しないstudentIdsを渡したとき400エラー
+POST  {{baseUrl}}/api/teacher/subjects/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-01-01",
+  "finishDate": "2024-02-01",
+  "teacherId": "T00000001",
+  "studentIds": [
+    "S202100011"
+  ]
+}
+
+###
+
+# @name startDateもしくはfinishDateが存在しない場合400エラー
+POST  {{baseUrl}}/api/teacher/subjects/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "finishDate": "2024-02-01",
+  "teacherId": "T00000001",
+  "studentIds": [
+    "S20210001"
+  ]
+}
+
+###
