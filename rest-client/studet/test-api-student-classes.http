@@ -12,7 +12,7 @@ Content-Type: application/json
 
 @token = {{login.response.body.token}}
 
-# @name 
+# @name 成功
 GET  {{baseUrl}}/api/student/classes
 X-Auth-Token: {{token}}
 ###
