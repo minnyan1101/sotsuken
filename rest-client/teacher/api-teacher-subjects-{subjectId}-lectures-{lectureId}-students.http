@@ -1,0 +1,71 @@
+@baseUrl = http://localhost:8080
+
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "id": "T00000001",
+    "password": "T00000001"
+}
+###
+
+@token = {{login.response.body.token}}
+
+# @name 
+GET  {{baseUrl}}/api/teacher/subjects/1/lectures/1/students
+X-Auth-Token: {{token}}
+###
+
+# @name 成功
+GET  {{baseUrl}}/api/teacher/subjects/1/lectures/1/students
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+###
+
+# @name 存在しないパスを渡したとき404
+GET  {{baseUrl}}/api/teacher/subjects/1/lectures/50000/students
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+###
+
+# @name 成功
+POST  {{baseUrl}}/api/teacher/subjects/1/lectures/1/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "state": "ABSENCE",
+  "isLateness": true,
+  "isLeaveEarly": true
+}
+
+###
+
+# @name stateにABSENCEもしくはattendance以外の値が渡されていないとき400
+POST  {{baseUrl}}/api/teacher/subjects/1/lectures/1/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "state": "ABSENCEaa",
+  "isLateness": true,
+  "isLeaveEarly": true
+}
+
+###
+
+# @name stateがない場合400
+POST  {{baseUrl}}/api/teacher/subjects/1/lectures/1/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "state": "",
+  "isLateness": true,
+  "isLeaveEarly": true
+}
+
+###
