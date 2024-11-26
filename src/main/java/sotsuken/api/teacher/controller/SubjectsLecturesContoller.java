@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import sotsuken.api.teacher.service.EditLectureUseCase;
 import sotsuken.api.teacher.service.FetchAllAttendanceUseCase;
 import sotsuken.api.teacher.service.AddLectureUseCase;
@@ -21,6 +23,7 @@ import sotsuken.api.teacher.service.FetchLectureUseCase;
 
 @RestController
 @RequestMapping("/api/teacher/subjects/{subjectId}/lectures")
+@Tag(name = "Teacher API")
 public class SubjectsLecturesContoller {
 
     @Autowired
@@ -42,6 +45,7 @@ public class SubjectsLecturesContoller {
     EditAttendanceUseCase editAttendanceUseCase;
 
     @PostMapping("") // コマを追加する処理（講義追加）
+    @Operation(summary = "新しい講義の追加")
     public List<SubjectLectureResponse> addLecture(
             @PathVariable("subjectId") Long subjectId,
             @AuthenticationPrincipal UserDetails userDetails,
@@ -51,6 +55,7 @@ public class SubjectsLecturesContoller {
     }
 
     @GetMapping("") // 授業のコマ一覧表示（講義一覧）
+    @Operation(summary = "特定の授業の講義の一覧の取得")
     public List<SubjectLectureResponse> fetchAllLecture(
             @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId) {
@@ -58,6 +63,7 @@ public class SubjectsLecturesContoller {
     }
 
     @GetMapping("/{lectureId}") // 講義の編集画面の表示（講義の編集）
+    @Operation(summary = "特定の講義の詳細を取得")
     public SubjectLectureResponse fetchLecture(
             @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId,
@@ -66,6 +72,7 @@ public class SubjectsLecturesContoller {
     }
 
     @PostMapping("/{lectureId}") // 講義の編集処理（講義の編集）
+    @Operation(summary = "特定の講義の編集")
     public SubjectLectureResponse editLecture(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId,
@@ -74,6 +81,7 @@ public class SubjectsLecturesContoller {
     }
 
     @GetMapping("/{lectureId}/students") // 出欠確認画面の表示（生徒の出欠編集）
+    @Operation(summary = "特定の講義を受講している学生の出席状況一覧の取得")
     public List<StudentLectureAttendanceResponce> fetchAllAttendance(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId) {
@@ -81,6 +89,7 @@ public class SubjectsLecturesContoller {
     }
 
     @PostMapping("/{lectureId}/students/{studentId}") // 出欠確認画面の編集（生徒の出欠編集）
+    @Operation(summary = "特定の講義を受講している特定学生の出席状況の変更")
     public StudentLectureAttendanceResponce editAttendance(
             @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId,
