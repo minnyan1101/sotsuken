@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -30,19 +31,19 @@ public class LoginController {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    private SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
-    ;
+    private SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();;
 
     @PostMapping("/login")
     @Operation(summary = "登録した学生、先生、管理者のログインAPI")
     public LoginResponse login(
             @AuthenticationPrincipal UserDetails userDetails,
             HttpSession session,
-            @RequestBody LoginRequest loginRequest,
+            @RequestBody @Validated LoginRequest loginRequest,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
-        UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.id(), loginRequest.password());
+
+        UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken
+                .unauthenticated(loginRequest.id(), loginRequest.password());
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);

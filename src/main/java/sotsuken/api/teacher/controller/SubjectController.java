@@ -15,6 +15,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,27 +34,30 @@ public class SubjectController {
 
     @Autowired
     CreateSubjectUseCase createSubjectUseCase;
-    
+
     @Autowired
     EditSubjectUseCase editSubjectUseCase;
 
     @GetMapping("") // 授業一覧表示(授業一覧)
     @Operation(summary = "すべての授業の一覧")
-    public List<SubjectResponse> fetchAllSubject(@AuthenticationPrincipal UserDetails userDetails) {
+    public List<SubjectResponse> fetchAllSubject(
+            @AuthenticationPrincipal UserDetails userDetails) {
         return fetchAllSubjectUseCase.handle(userDetails.getUsername());
     }
 
     @PostMapping("") // 新しく授業を作成（授業の追加）（学生選択）
     @Operation(summary = "新しい授業の作成")
-    public SubjectResponse createSubject(@AuthenticationPrincipal UserDetails userDetails,
-            @RequestBody CreateSubjectRequest createsubject) {
+    public SubjectResponse createSubject(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody @Validated CreateSubjectRequest createsubject) {
         return createSubjectUseCase.handle(userDetails.getUsername(), createsubject.subjectName,
                 createsubject.startDate, createsubject.finishDate, createsubject.teacherId, createsubject.studentIds);
     }
 
     @GetMapping("/{subjectId}") // 授業データの取得
     @Operation(summary = "指定した授業内容の取得")
-    public SubjectResponse fetchSubject(@AuthenticationPrincipal UserDetails userDetails,
+    public SubjectResponse fetchSubject(
+            @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId) {
         return fetchSubjectUseCase.handle(userDetails.getUsername(), subjectId);
 
@@ -64,7 +68,8 @@ public class SubjectController {
     public SubjectResponse editSubject(
             @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId,
-            @RequestBody EditSubjectRequest editSubject) {
-        return editSubjectUseCase.handle(userDetails.getUsername(), subjectId, editSubject.subjectName, editSubject.startDate, editSubject.finishDate, editSubject.teacherId, editSubject.studentIds);
+            @RequestBody @Validated EditSubjectRequest editSubject) {
+        return editSubjectUseCase.handle(userDetails.getUsername(), subjectId, editSubject.subjectName,
+                editSubject.startDate, editSubject.finishDate, editSubject.teacherId, editSubject.studentIds);
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @RestController
 @RequestMapping("/api/student/subjects")
 @Tag(name = "Student API")
@@ -31,18 +30,16 @@ public class StudentSubjectsController {
     @GetMapping("")
     @Operation(summary = "学生が参加している授業の一覧")
     public List<SubjectsResponse> fetchAllSubjects(
-        @AuthenticationPrincipal UserDetails userDetails
-    ) {
+            @AuthenticationPrincipal UserDetails userDetails) {
         return fetchAllSubjectsUseCase.hanlde(userDetails.getUsername());
     }
-    
+
     @GetMapping("/{subjectId}")
     @Operation(summary = "学生が参加している指定したID授業の情報")
     public SubjectReportResponse fetchSubjectReport(
-        @AuthenticationPrincipal UserDetails userDetails,
-        @PathVariable("subjectId") Long subjectId
-    ) {
+            @AuthenticationPrincipal UserDetails userDetails,
+            @PathVariable("subjectId") Long subjectId) {
         return fetchSubjectReportUseCase.hanlde(userDetails.getUsername(), subjectId);
     }
-    
+
 }
