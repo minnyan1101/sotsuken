@@ -1,0 +1,60 @@
+@baseUrl = http://localhost:8080
+# @name 成功
+POST  {{baseUrl}}/api/student/register
+Content-Type: application/json
+
+{
+  "studentId": "S20210005",
+  "studentName": "student 5",
+  "password": "password",
+  "classId": 1
+}
+###
+
+# @name 同じアカウントを登録しようとした場合に409Conflictが返される
+POST  {{baseUrl}}/api/student/register
+Content-Type: application/json
+
+{
+  "studentId": "S20210005",
+  "studentName": "student 5",
+  "password": "password",
+  "classId": 1
+}
+###
+
+# @name studentIdを満たさない文字列で登録された場合に400エラーが発生する
+POST  {{baseUrl}}/api/student/register
+Content-Type: application/json
+
+{
+  "studentId": "20210006",
+  "studentName": "student 6",
+  "password": "password",
+  "classId": 1
+}
+###
+
+# @name 存在しないclassIdを指定された場合に400エラーが発生する
+POST  {{baseUrl}}/api/student/register
+Content-Type: application/json
+
+{
+  "studentId": "S20210006",
+  "studentName": "student 6",
+  "password": "password",
+  "classId": 100
+}
+###
+
+# @name studentNameを満たさない場合に400エラーが発生する
+POST  {{baseUrl}}/api/student/register
+Content-Type: application/json
+
+{
+  "studentId": "S20210006",
+  "studentName": "",
+  "password": "password",
+  "classId": 1
+}
+###
