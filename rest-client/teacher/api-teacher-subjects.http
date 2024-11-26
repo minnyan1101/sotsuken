@@ -1,0 +1,186 @@
+@baseUrl = http://localhost:8080
+
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "id": "T00000001",
+    "password": "T00000001"
+}
+###
+
+@token = {{login.response.body.token}}
+
+# @name 成功
+GET  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+###
+
+# @name 成功
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-26",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name subjectNameに何も指定しない場合エラー（400）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-26",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name subjectNameに33文字を入力した場合エラー（400）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "ssssstttttuuuuussssstttttuuuuuppp",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-26",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name subjectNameに改行を入力した場合エラー（400）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject\nsubject",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-26",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name teacherIdに存在しないteacerIdを指定してエラー（400）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-26",
+  "teacherId": "T00000004",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name teacerIdを指定してしない場合エラー（400）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-26",
+  "teacherId": "",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name studentIdsに存在しないstudentIdsを指定してエラー(400)
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-26",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210005"]
+}
+###
+
+# @name studentIdsを指定してしない場合エラー（400）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-26",
+  "teacherId": "T00000001",
+  "studentIds": [""]
+}
+###
+
+# @name startDateを指定しない場合エラー（400）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "",
+  "finishDate": "2024-11-26",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name finishDateを指定しない場合エラー（400）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-11-25",
+  "finishDate": "",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name startDateより同日をfinishdateに入力するとエラー（500）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-25",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210001"]
+}
+###
+
+# @name startDateより前日をfinishdateに入力するとエラー（500）
+POST  {{baseUrl}}/api/teacher/subjects
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-11-25",
+  "finishDate": "2024-11-24",
+  "teacherId": "T00000001",
+  "studentIds": ["S20210001"]
+}
+###
