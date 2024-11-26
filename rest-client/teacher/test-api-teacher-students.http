@@ -48,7 +48,7 @@ Content-Type: application/json
 }
 ###
 
-# @name studentNameが17文字以上の場合
+# @name studentNameが17文字以上の場合(200)
 POST  {{baseUrl}}/api/teacher/students/S20210001
 X-Auth-Token: {{token}}
 Content-Type: application/json
@@ -59,7 +59,7 @@ Content-Type: application/json
 }
 ###
 
-# @name 改行が入った場合
+# @name 改行が入った場合(400)
 POST  {{baseUrl}}/api/teacher/students/S20210001
 X-Auth-Token: {{token}}
 Content-Type: application/json
@@ -71,7 +71,7 @@ Content-Type: application/json
 }
 ###
 
-# @name studentNameが空文字の場合
+# @name studentNameが空文字の場合(400)
 POST  {{baseUrl}}/api/teacher/students/S20210001
 X-Auth-Token: {{token}}
 Content-Type: application/json
@@ -82,7 +82,7 @@ Content-Type: application/json
 }
 ###
 
-# @name studentNameが空白の場合
+# @name studentNameが空白の場合(200)
 POST  {{baseUrl}}/api/teacher/students/S20210001
 X-Auth-Token: {{token}}
 Content-Type: application/json
@@ -93,7 +93,7 @@ Content-Type: application/json
 }
 ###
 
-# @name classIdが存在しない場合(404)
+# @name classIdが存在しない場合(400)
 POST  {{baseUrl}}/api/teacher/students/S20210001
 X-Auth-Token: {{token}}
 Content-Type: application/json
