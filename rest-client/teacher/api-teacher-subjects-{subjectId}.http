@@ -1,0 +1,62 @@
+@baseUrl = http://localhost:8080
+
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "id": "T00000001",
+    "password": "T00000001"
+}
+###
+
+@token = {{login.response.body.token}}
+
+# @name 成功
+GET  {{baseUrl}}/api/teacher/subjects/1
+X-Auth-Token: {{token}}
+
+
+###
+
+# @name subjectIdが存在しない場合に404エラーが返る
+GET  {{baseUrl}}/api/teacher/subjects/4
+X-Auth-Token: {{token}}
+
+
+###
+
+# @name 成功
+POST  {{baseUrl}}/api/teacher/subjects/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-01-01",
+  "finishDate": "2024-02-01",
+  "teacherId": "T00000001",
+  "studentIds": [
+    "S20210001"
+  ]
+}
+
+###
+
+# @name subjectIdが存在しない場合に、404エラーが返る
+POST  {{baseUrl}}/api/teacher/subjects/4
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "subjectName": "subject 1",
+  "startDate": "2024-01-01",
+  "finishDate": "2024-02-01",
+  "teacherId": "T00000001",
+  "studentIds": [
+    "S20210001"
+  ]
+}
+
+###
+
