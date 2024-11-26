@@ -1,0 +1,73 @@
+@baseUrl = http://localhost:8080
+
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "id": "T00000001",
+    "password": "T00000001"
+}
+###
+
+@token = {{login.response.body.token}}
+
+# @name 正常にPOSTが返っている
+POST   {{baseUrl}}/api/teacher/subjects/1/lectures/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "lectureName": "string",
+  "date": "2024-11-26",
+  "periods": 0
+}
+###
+
+# @name subjectIdが存在しない場合に404エラーが返ってくる
+POST  {{baseUrl}}/api/teacher/subjects/4/lectures/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "lectureName": "string",
+  "date": "2024-11-26",
+  "periods": 0
+}
+###
+
+# @name subjectIdは存在するがlectureIdがsubjectに含まれていない場合に404エラーが返ってくる
+POST  {{baseUrl}}/api/teacher/subjects/1/lectures/4
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "lectureName": "string",
+  "date": "2024-11-26",
+  "periods": 0
+}
+###
+
+# @name subjectIdは存在するがlectureIdが存在しない場合に404エラーが返ってくる
+POST  {{baseUrl}}/api/teacher/subjects/1/lectures/10
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "lectureName": "string",
+  "date": "2024-11-26",
+  "periods": 0
+}
+###
+
+# @name subjectIdもlectureIdもない場合に404エラーが返ってくる
+POST  {{baseUrl}}/api/teacher/subjects/4/lectures/10
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "lectureName": "string",
+  "date": "2024-11-26",
+  "periods": 0
+}
+###
