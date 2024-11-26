@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import sotsuken.api.teacher.service.EditLectureUseCase;
 import sotsuken.api.teacher.service.FetchAllAttendanceUseCase;
 import sotsuken.api.teacher.service.AddLectureUseCase;
@@ -24,7 +26,7 @@ import sotsuken.api.teacher.service.FetchLectureUseCase;
 @RestController
 @RequestMapping("/api/teacher/subjects/{subjectId}/lectures")
 @Tag(name = "Teacher API")
-public class SubjectsLecturesContoller {
+public class SubjectsLecturesController {
 
     @Autowired
     FetchAllLectureUseCase fetchAllLectureUseCase;
@@ -49,7 +51,7 @@ public class SubjectsLecturesContoller {
     public List<SubjectLectureResponse> addLecture(
             @PathVariable("subjectId") Long subjectId,
             @AuthenticationPrincipal UserDetails userDetails,
-            @RequestBody List<CreateSubjectLectureRequest> reqeust) {
+            @RequestBody @Validated List<@Valid CreateSubjectLectureRequest> reqeust) {
         return addLectureUseCase.handle(userDetails.getUsername(), subjectId, reqeust);
 
     }
@@ -76,7 +78,7 @@ public class SubjectsLecturesContoller {
     public SubjectLectureResponse editLecture(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId,
-            @RequestBody EditSubjectLectureRequest reqeust) {
+            @RequestBody @Validated EditSubjectLectureRequest reqeust) {
         return editLectureUseCase.handle(subjectId, lectureId, reqeust.lectureName, reqeust.date, reqeust.periods);
     }
 
@@ -95,7 +97,7 @@ public class SubjectsLecturesContoller {
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId,
             @PathVariable("studentId") String studentId,
-            @RequestBody EditAttendanceRequest request) {
+            @RequestBody @Validated EditAttendanceRequest request) {
         return editAttendanceUseCase.handle(userDetails.getUsername(), subjectId, lectureId, studentId, request.state,
                 request.isLateness, request.isLeaveEarly);
     }

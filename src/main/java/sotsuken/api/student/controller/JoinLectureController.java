@@ -10,6 +10,7 @@ import sotsuken.api.student.service.JoinLectureUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -25,10 +26,10 @@ public class JoinLectureController {
     @Operation(summary = "学生が講義に参加", description = "学生が読み取った授業ID、講義IDとjoinCodeを利用して講義に参加します。")
     public JoinStatusResponse joinLecture(
             @AuthenticationPrincipal UserDetails userDetails,
-            @RequestBody JoinLectureRequest request) {
-        
-        
-        return joinLectureUseCase.handle(userDetails.getUsername(), request.subjectId, request.lectureId, request.joinCode);
+            @RequestBody @Validated JoinLectureRequest request) {
+
+        return joinLectureUseCase.handle(userDetails.getUsername(), request.subjectId, request.lectureId,
+                request.joinCode);
     }
 
 }

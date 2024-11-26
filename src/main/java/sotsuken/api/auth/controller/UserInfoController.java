@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @RestController
 @RequestMapping("/api/auth")
 @Tag(name = "Auth API")
@@ -28,18 +27,17 @@ public class UserInfoController {
     @GetMapping("/userinfo")
     @Operation(summary = "認証したアカウントの名前と権限を取得")
     public UserInfoResponse fetchUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
-        
-        Account account = accountRepository.findById(userDetails.getUsername()).orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
-        
+
+        Account account = accountRepository.findById(userDetails.getUsername())
+                .orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
+
         return new UserInfoResponse(
-            userDetails.getUsername(),
-            account.getAccountType()
-        );
+                userDetails.getUsername(),
+                account.getAccountType());
     }
-    
+
     public record UserInfoResponse(
-        String id,
-        AccountType role
-    ) {
+            String id,
+            AccountType role) {
     }
 }
