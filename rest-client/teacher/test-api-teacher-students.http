@@ -1,0 +1,105 @@
+@baseUrl = http://localhost:8080
+
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "id": "T00000001",
+    "password": "T00000001"
+}
+###
+
+@token = {{login.response.body.token}}
+
+# @name 成功
+GET  {{baseUrl}}/api/teacher/students?classId=1
+X-Auth-Token: {{token}}
+###
+
+# @name 成功
+GET  {{baseUrl}}/api/teacher/students/S20210001
+X-Auth-Token: {{token}}
+###
+
+# @name studentIdの頭文字がSではなくTの場合(404)
+GET  {{baseUrl}}/api/teacher/students/T20210001
+X-Auth-Token: {{token}}
+###
+
+# @name studentIdの頭文字がSではなく別の英字だった場合(404)
+GET  {{baseUrl}}/api/teacher/students/A20210001
+X-Auth-Token: {{token}}
+###
+
+# @name studentIdの頭文字がSではなく数字だった場合(404)
+GET  {{baseUrl}}/api/teacher/students/120210001
+X-Auth-Token: {{token}}
+###
+
+# @name 成功
+POST  {{baseUrl}}/api/teacher/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "studentName": "string",
+  "classId": 1
+}
+###
+
+# @name studentNameが17文字以上の場合
+POST  {{baseUrl}}/api/teacher/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "studentName": "stringggggggggggg",
+  "classId": 1
+}
+###
+
+# @name 改行が入った場合
+POST  {{baseUrl}}/api/teacher/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "studentName": "str
+  ing",
+  "classId": 1
+}
+###
+
+# @name studentNameが空文字の場合
+POST  {{baseUrl}}/api/teacher/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "studentName": "",
+  "classId": 1
+}
+###
+
+# @name studentNameが空白の場合
+POST  {{baseUrl}}/api/teacher/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "studentName": " ",
+  "classId": 1
+}
+###
+
+# @name classIdが存在しない場合(404)
+POST  {{baseUrl}}/api/teacher/students/S20210001
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "studentName": "string",
+  "classId": 0
+}
+###
