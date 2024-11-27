@@ -74,7 +74,7 @@ public class AddLectureUseCase {
     }
 
     private long generateJoinCode() {
-        return rand.nextLong() % 100000000;
+        return Math.abs(rand.nextLong() % 100000000);
     }
 
 }
