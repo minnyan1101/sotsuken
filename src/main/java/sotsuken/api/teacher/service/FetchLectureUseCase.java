@@ -19,7 +19,7 @@ public class FetchLectureUseCase {
     @Autowired
     SubjectRepository subjectRepository;
 
-    public SubjectLectureResponse handle(String userId, Long lectureId, Long subjectId) {
+    public SubjectLectureResponse handle(String userId, Long subjectId,Long lectureId) {
         Subject subject = subjectRepository.findById(subjectId)
             .orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
 
