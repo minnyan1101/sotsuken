@@ -53,6 +53,8 @@ public class JoinLectureUseCase {
 
         attendance.changeState(AttendanceState.ATTENDANCE);
 
+        attendanceRepository.save(attendance);
+
         return new JoinStatusResponse(subjectId, lectureId);
     }
 }
