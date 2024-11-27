@@ -22,7 +22,7 @@ public class ChangeStudentStatusUseCase {
 
     public StudentStatusResponse handle(String userId, String studentId, String studentName, Long classId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
-        StudentClass studentclass = studentClassRepository.findById(classId).orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
+        StudentClass studentclass = studentClassRepository.findById(classId).orElseThrow(() -> new ErrorResponseException(HttpStatus.BAD_REQUEST));
         
         student.changeName(studentName);
         student.changeClass(studentclass);
