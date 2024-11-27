@@ -48,7 +48,7 @@ public class AddLectureUseCase {
             Long periods) {
 
         Subject subject = subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new ErrorResponseException(HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
         Lecture newLecture = new Lecture(
                 null,
                 lectureName,
