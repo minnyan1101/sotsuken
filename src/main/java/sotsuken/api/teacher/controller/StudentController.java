@@ -10,6 +10,7 @@ import sotsuken.api.teacher.service.FetchAllStudentUseCase;
 import sotsuken.api.teacher.service.FetchStudentUseCase;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -39,8 +40,12 @@ public class StudentController {
     @Operation(summary = "すべての学生の一覧")
     public List<StudentStatusResponse> fetchAllStudents(
             @AuthenticationPrincipal UserDetails userDetails,
-            @RequestParam("classId") Long classId) {
-        return fetchAllStudentUseCase.handle(userDetails.getUsername(), classId);
+            @RequestParam("classId") Optional<Long> classId) {
+        
+        if (classId.isPresent()) {
+            return fetchAllStudentUseCase.handle(userDetails.getUsername(), classId.get());    
+        }
+        return fetchAllStudentUseCase.handle(userDetails.getUsername());
     }
 
     @GetMapping("/{studentId}") // 学生１人の情報を表示（学生詳細）
