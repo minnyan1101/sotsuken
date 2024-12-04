@@ -18,7 +18,7 @@ X-Auth-Token: {{token}}
 ###
 
 # @name subjectIdが存在しない場合(404)
-GET  {{baseUrl}}/api/teacher/subjects/4/lectures
+GET  {{baseUrl}}/api/teacher/subjects/100/lectures
 X-Auth-Token: {{token}}
 ###
 
@@ -37,8 +37,22 @@ Content-Type: application/json
 ]
 ###
 
-# @name subjectIdが正常に入力されている場合（200）
+# @name 成功（200）
 POST  {{baseUrl}}/api/teacher/subjects/1/lectures
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+[
+  {
+    "lectureName": "string",
+    "date": "2024-11-26",
+    "periods": 0
+  }
+]
+###
+
+# @name subjectIdが正常に入力されていない場合（404）
+POST  {{baseUrl}}/api/teacher/subjects/0/lectures
 X-Auth-Token: {{token}}
 Content-Type: application/json
 

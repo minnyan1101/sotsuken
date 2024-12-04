@@ -18,21 +18,22 @@ X-Auth-Token: {{token}}
 ###
 
 # @name subjectIdが存在しない場合に404エラーが返ってくる
-GET  {{baseUrl}}/api/teacher/subjects/1/lectures/4
+GET  {{baseUrl}}/api/teacher/subjects/9/lectures/3
 X-Auth-Token: {{token}}
 ###
 
 
 # @name subjectIdは存在するがlectureIdがsubjectに含まれていない場合に404エラーが返ってくる
-GET  {{baseUrl}}/api/teacher/subjects/4/lectures/1
+GET  {{baseUrl}}/api/teacher/subjects/1/lectures/4
 X-Auth-Token: {{token}}
 ###
 
  # @name subjectIdは存在するがlectureIdが存在しない場合に404エラーが返ってくる
-GET  {{baseUrl}}/api/teacher/subjects/10/lectures/1
+GET  {{baseUrl}}/api/teacher/subjects/1/lectures/100
 X-Auth-Token: {{token}}
+###
 
  # @name subjectIdもlectureIdもない場合に404エラーが返ってくる
-GET  {{baseUrl}}/api/teacher/subjects/10/lectures/4
+GET  {{baseUrl}}/api/teacher/subjects/4/lectures/10
 X-Auth-Token: {{token}}
 

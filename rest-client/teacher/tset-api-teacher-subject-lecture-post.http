@@ -49,7 +49,7 @@ Content-Type: application/json
 ###
 
 # @name subjectIdは存在するがlectureIdが存在しない場合に404エラーが返ってくる
-POST  {{baseUrl}}/api/teacher/subjects/1/lectures/10
+POST  {{baseUrl}}/api/teacher/subjects/1/lectures/100
 X-Auth-Token: {{token}}
 Content-Type: application/json
 
