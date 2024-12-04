@@ -1,14 +1,14 @@
 spring:
     application:
-        name: api
+        name: sotsuken-api
     datasource:
-        url: jdbc:postgresql://localhost:5432/postgres
-        username: ${POSTGRES_USER:postgres}
+        url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+        username: ${POSTGRES_USER}
         password: ${POSTGRES_PASSWORD}
         driver-class-name: org.postgresql.Driver
 
     data:
         redis:
-            host: localhost
+            host: ${REDIS_HOST}
             password: 
-            port: 6379
+            port: ${REDIS_PORT}
