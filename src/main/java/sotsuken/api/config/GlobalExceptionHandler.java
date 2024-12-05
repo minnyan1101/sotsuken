@@ -28,4 +28,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
     public ProblemDetail handleTeacherIdValidationException(TeacherIdValidationException ex, WebRequest request) {
         return createProblemDetail(ex, HttpStatus.BAD_REQUEST, "", null, null, request);
     }
+    
+    @ExceptionHandler
+    public ProblemDetail handleClassNameValidationException(ClassNameValidationException ex, WebRequest request){
+        return createProblemDetail(ex,HttpStatus.BAD_REQUEST, "", null, null, request);
+    }
+    
 }
