@@ -13,6 +13,8 @@ import sotsuken.api.model.exception.StudentIdValidationExseption;
 import sotsuken.api.model.exception.LectureNameValidationException;
 import sotsuken.api.model.exception.SubjectDateValidationException;
 import sotsuken.api.model.exception.TeacherIdValidationException;
+import sotsuken.api.model.exception.SubjectNameValidationException;
+import sotsuken.api.model.exception.TeacherNameValidationException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
@@ -29,6 +31,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 
     @ExceptionHandler
     public ProblemDetail handleTeacherIdValidationException(TeacherIdValidationException ex, WebRequest request) {
+        return createProblemDetail(ex, HttpStatus.BAD_REQUEST, "", null, null, request);
+    }
+    
+    @ExceptionHandler
+    public ProblemDetail handleSubjectNameValidationException(SubjectNameValidationException ex, WebRequest request) {
+        return createProblemDetail(ex, HttpStatus.BAD_REQUEST, "", null, null, request);
+    }
+
+    @ExceptionHandler
+    public ProblemDetail handleTeacherNameValidationException(TeacherNameValidationException ex, WebRequest request) {
         return createProblemDetail(ex, HttpStatus.BAD_REQUEST, "", null, null, request);
     }
     
