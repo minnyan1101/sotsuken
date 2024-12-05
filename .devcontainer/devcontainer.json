@@ -11,7 +11,8 @@
 				"vscjava.vscode-java-pack",
 				"vmware.vscode-boot-dev-pack",
 				"GitHub.vscode-pull-request-github",
-				"ms-vsliveshare.vsliveshare"
+				"humao.rest-client",
+				"cweijan.vscode-database-client2"
 			],
 			"settings": {
 				"java.import.gradle.java.home": "",
