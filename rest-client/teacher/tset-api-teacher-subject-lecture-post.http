@@ -71,3 +71,27 @@ Content-Type: application/json
   "periods": 0
 }
 ###
+
+# @name subjectNameが空白の場合に400エラーが返ってくる
+POST  {{baseUrl}}/api/teacher/subjects/1/lectures/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "lectureName": "",
+  "date": "2024-11-26",
+  "periods": 0
+}
+###
+
+# @name subjectNameに改行が入った場合に400エラーが返ってくる
+POST  {{baseUrl}}/api/teacher/subjects/1/lectures/1
+X-Auth-Token: {{token}}
+Content-Type: application/json
+
+{
+  "lectureName": "str\ning",
+  "date": "2024-11-26",
+  "periods": 0
+}
+###
