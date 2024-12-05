@@ -65,8 +65,7 @@ X-Auth-Token: {{token}}
 Content-Type: application/json
 
 {
-  "studentName": "str
-  ing",
+  "studentName": "str\ning",
   "classId": 1
 }
 ###
