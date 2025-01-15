@@ -1,0 +1,18 @@
+@baseUrl = http://localhost:8080
+
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "id": "T00000001",
+    "password": "T00000001"
+}
+###
+
+@token = {{login.response.body.token}}
+
+# @name 
+GET  {{baseUrl}}/api/teacher/teachers
+X-Auth-Token: {{token}}
+###
