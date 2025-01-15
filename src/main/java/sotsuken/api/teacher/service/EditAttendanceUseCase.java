@@ -14,7 +14,7 @@ import sotsuken.api.repository.AttendanceRepository;
 import sotsuken.api.repository.LectureRepository;
 import sotsuken.api.repository.StudentRepository;
 import sotsuken.api.repository.SubjectRepository;
-import sotsuken.api.teacher.controller.StudentLectureAttendanceResponce;
+import sotsuken.api.teacher.controller.StudentLectureAttendanceResponse;
 
 @Service
 public class EditAttendanceUseCase {
@@ -31,7 +31,7 @@ public class EditAttendanceUseCase {
     @Autowired
     SubjectRepository subjectRepository;
 
-    public StudentLectureAttendanceResponce handle(String userId, Long subjectId, Long lectureId, String studentId,
+    public StudentLectureAttendanceResponse handle(String userId, Long subjectId, Long lectureId, String studentId,
             AttendanceState state, boolean isLateness, boolean isLeaveEarly) {
 
         Subject subject = subjectRepository.findById(subjectId)
@@ -55,10 +55,11 @@ public class EditAttendanceUseCase {
 
         Attendance savedAttendance = attendanceRepository.save(editAttendance);
 
-        return new StudentLectureAttendanceResponce(
+        return new StudentLectureAttendanceResponse(
                 lecture.getSubject().getId(),
                 savedAttendance.getLecture().getId(),
                 savedAttendance.getStudent().getId(),
+                savedAttendance.getStudent().getName(),
                 savedAttendance.getState().toString(),
                 savedAttendance.isLateness(),
                 savedAttendance.isLeaveEarly());

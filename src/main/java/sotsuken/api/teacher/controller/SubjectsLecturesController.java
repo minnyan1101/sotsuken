@@ -84,7 +84,7 @@ public class SubjectsLecturesController {
 
     @GetMapping("/{lectureId}/students") // 出欠確認画面の表示（生徒の出欠編集）
     @Operation(summary = "特定の講義を受講している学生の出席状況一覧の取得")
-    public List<StudentLectureAttendanceResponce> fetchAllAttendance(
+    public List<StudentLectureAttendanceResponse> fetchAllAttendance(
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId) {
         return fetchAllAttendanceUseCase.handle(subjectId, lectureId);
@@ -92,7 +92,7 @@ public class SubjectsLecturesController {
 
     @PostMapping("/{lectureId}/students/{studentId}") // 出欠確認画面の編集（生徒の出欠編集）
     @Operation(summary = "特定の講義を受講している特定学生の出席状況の変更")
-    public StudentLectureAttendanceResponce editAttendance(
+    public StudentLectureAttendanceResponse editAttendance(
             @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable("subjectId") Long subjectId,
             @PathVariable("lectureId") Long lectureId,

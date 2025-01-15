@@ -14,7 +14,7 @@ import sotsuken.api.model.Subject;
 import sotsuken.api.repository.AttendanceRepository;
 import sotsuken.api.repository.LectureRepository;
 import sotsuken.api.repository.SubjectRepository;
-import sotsuken.api.teacher.controller.StudentLectureAttendanceResponce;
+import sotsuken.api.teacher.controller.StudentLectureAttendanceResponse;
 
 @Service
 public class FetchAllAttendanceUseCase {
@@ -26,7 +26,7 @@ public class FetchAllAttendanceUseCase {
     @Autowired
     LectureRepository lectureRepository;
 
-    public List<StudentLectureAttendanceResponce> handle(Long subjectId, Long lectureId) {
+    public List<StudentLectureAttendanceResponse> handle(Long subjectId, Long lectureId) {
         Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
    
         if (! subject.containLectureById(lectureId)) {
@@ -36,12 +36,13 @@ public class FetchAllAttendanceUseCase {
 
         List<Attendance> attendances = attendanceRepository.findByLecture(lecture);
 
-        List<StudentLectureAttendanceResponce> res = new ArrayList<>();
+        List<StudentLectureAttendanceResponse> res = new ArrayList<>();
         for (Attendance attendance: attendances) {
-            res.add(new StudentLectureAttendanceResponce(
+            res.add(new StudentLectureAttendanceResponse(
                 subject.getId(),
                 lecture.getId(),
                 attendance.getStudent().getId(),
+                attendance.getStudent().getName(),
                 attendance.getState().toString(), 
                 attendance.isLateness(), 
                 attendance.isLeaveEarly()));
