@@ -1,9 +1,9 @@
 package sotsuken.api.model;
 
 public enum AttendanceState {
-    ATTENDANCE("attendance"),
-    ABSENCE("absence"),
-    OFFICIAL_ABSENCE("official_absence");
+    ATTENDANCE("ATTENDANCE"),
+    ABSENCE("ABSENCE"),
+    OFFICIAL_ABSENCE("OFFICIAL_ABSENCE");
 
     private final String name;
 
