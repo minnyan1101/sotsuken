@@ -2,28 +2,25 @@ package sotsuken.api.student.controller;
 
 import java.time.LocalDate;
 
-public class SubjectsResponse {
+public class StudentSubjectResponse {
     public Long subjectId;
-    public String name;
-    public String detail;
+    public String subjectName;
     public LocalDate startDate;
-    public LocalDate endDate;
+    public LocalDate finishDate;
     public String teacherId;
 
-    public SubjectsResponse(
+    public StudentSubjectResponse(
         Long subjectId, 
-        String name, 
-        String detail, 
+        String subjectName, 
         LocalDate startDate, 
-        LocalDate endDate,
+        LocalDate finishDate,
         String teacherId)
     {
 
         this.subjectId = subjectId;
-        this.name = name;
-        this.detail = detail;
+        this.subjectName = subjectName;
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.finishDate = finishDate;
         this.teacherId = teacherId;
     }
 
