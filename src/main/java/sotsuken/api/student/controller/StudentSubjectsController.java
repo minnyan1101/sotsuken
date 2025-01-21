@@ -29,7 +29,7 @@ public class StudentSubjectsController {
 
     @GetMapping("")
     @Operation(summary = "学生が参加している授業の一覧")
-    public List<SubjectsResponse> fetchAllSubjects(
+    public List<StudentSubjectResponse> fetchAllSubjects(
             @AuthenticationPrincipal UserDetails userDetails) {
         return fetchAllSubjectsUseCase.hanlde(userDetails.getUsername());
     }
