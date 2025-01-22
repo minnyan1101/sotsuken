@@ -55,6 +55,6 @@ public class JoinLectureUseCase {
 
         attendanceRepository.save(attendance);
 
-        return new JoinStatusResponse(subjectId, lectureId);
+        return new JoinStatusResponse(subject.getId(), subject.getName(), lecture.getId(), lecture.getName());
     }
 }
