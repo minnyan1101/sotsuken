@@ -3,4 +3,4 @@ spring:
         clean-disabled: false
         locations:
             - classpath:db/migration
-            - classpath:db/migration/dev
+            - classpath:dev/db/migration
