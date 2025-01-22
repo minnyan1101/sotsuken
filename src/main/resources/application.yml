@@ -12,3 +12,7 @@ spring:
             host: ${REDIS_HOST}
             password: 
             port: ${REDIS_PORT}
+
+    flyway:
+        locations:
+            - classpath:db/migration
