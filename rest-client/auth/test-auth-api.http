@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:8080
+
+# @name teacherLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "id": "T00000001",
+    "password": "T00000001"
+}
+###
+
+# @name studentLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "id": "S20210001",
+    "password": "S20210001"
+}
+###
+
+
+@studentToken = {{studentLogin.response.body.token}}
+
+@teacherToken = {{teacherLogin.response.body.token}}
+
+
+# @name 成功
+GET  {{baseUrl}}/api/auth/userinfo
+X-Auth-Token: {{studentToken}}
+###
+# @name 成功
+GET  {{baseUrl}}/api/auth/userinfo
+X-Auth-Token: {{teacherToken}}
+###
